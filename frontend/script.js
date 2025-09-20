@@ -194,7 +194,7 @@ function displayResults(data) {
     row.innerHTML = `
       <td>${result.employeeId}</td>
       <td class="room-${result.room.replace(/\s+/g, '-').toLowerCase()}">${result.room}</td>
-      <td>${employeesData.find(emp => emp.id === result.employeeId)?.request_time || 'N/A'}</td>
+      <td>${result.requestTime || 'N/A'}</td>
       <td class="${statusClass}">
         <span class="status-badge ${statusClass}">
           ${result.granted ? '✅ GRANTED' : '❌ DENIED'}

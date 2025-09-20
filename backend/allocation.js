@@ -88,6 +88,7 @@ class AccessSimulator {
       return {
         employeeId: id,
         room: room,
+        requestTime: request_time,
         granted: false,
         reason: `Room '${room}' not found in system`
       };
@@ -98,6 +99,7 @@ class AccessSimulator {
       return {
         employeeId: id,
         room: room,
+        requestTime: request_time,
         granted: false,
         reason: `Access denied: Insufficient access level (required: ${roomConfig.minAccessLevel}, has: ${access_level})`
       };
@@ -108,6 +110,7 @@ class AccessSimulator {
       return {
         employeeId: id,
         room: room,
+        requestTime: request_time,
         granted: false,
         reason: `Access denied: Room closed (open: ${roomConfig.openTime}-${roomConfig.closeTime}, requested: ${request_time})`
       };
@@ -120,6 +123,7 @@ class AccessSimulator {
       return {
         employeeId: id,
         room: room,
+        requestTime: request_time,
         granted: false,
         reason: `Access denied: Cooldown period active (last access: ${lastAccess}, cooldown: ${roomConfig.cooldown} minutes)`
       };
@@ -131,6 +135,7 @@ class AccessSimulator {
     return {
       employeeId: id,
       room: room,
+      requestTime: request_time,
       granted: true,
       reason: `Access granted to ${room}`
     };

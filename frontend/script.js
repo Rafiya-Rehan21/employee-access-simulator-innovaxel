@@ -3,20 +3,17 @@ const loadEmployeesBtn = document.getElementById("loadEmployees");
 const simulateAccessBtn = document.getElementById("simulateAccess");
 const clearAllBtn = document.getElementById("clearAll");
 const tableContainer = document.getElementById("tableContainer");
-const rulesContainer = document.getElementById("rulesContainer");
 const resultsContainer = document.getElementById("resultsContainer");
 const loadingIndicator = document.getElementById("loadingIndicator");
 const errorContainer = document.getElementById("errorContainer");
 const tbody = document.querySelector("#employeeTable tbody");
 const resultsTbody = document.querySelector("#resultsTable tbody");
 const employeeCount = document.getElementById("employeeCount");
-const roomRulesDiv = document.getElementById("roomRules");
 const summaryStats = document.getElementById("summaryStats");
 const errorMessage = document.getElementById("errorMessage");
 
 // State management
 let employeesData = [];
-let roomRulesData = {};
 let tableVisible = false;
 let resultsVisible = false;
 
@@ -37,56 +34,19 @@ function getStatusClass(granted) {
   return granted ? 'status-granted' : 'status-denied';
 }
 
-// Load room rules
-async function loadRoomRules() {
-  try {
-    const response = await fetch("/api/rooms");
-    if (!response.ok) throw new Error('Failed to fetch room rules');
-    
-    roomRulesData = await response.json();
-    displayRoomRules();
-  } catch (error) {
-    console.error("Error loading room rules:", error);
-    showError("Failed to load room rules");
-  }
-}
-
-// Display room rules
-function displayRoomRules() {
-  roomRulesDiv.innerHTML = "";
-  
-  const rulesGrid = document.createElement("div");
-  rulesGrid.className = "rules-grid";
-  
-  Object.entries(roomRulesData).forEach(([roomName, rules]) => {
-    const ruleCard = document.createElement("div");
-    ruleCard.className = "rule-card";
-    ruleCard.innerHTML = `
-      <h4>${roomName}</h4>
-      <p><strong>Min Access Level:</strong> ${rules.minAccessLevel}</p>
-      <p><strong>Open Hours:</strong> ${rules.openTime} - ${rules.closeTime}</p>
-      <p><strong>Cooldown:</strong> ${rules.cooldown} minutes</p>
-    `;
-    rulesGrid.appendChild(ruleCard);
-  });
-  
-  roomRulesDiv.appendChild(rulesGrid);
-  rulesContainer.style.display = "block";
-}
-
 // Load employees function
 async function loadEmployees() {
   try {
     loadingIndicator.style.display = "block";
     const response = await fetch("/api/employees");
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     employeesData = await response.json();
     displayEmployees();
-    
+
   } catch (error) {
     console.error("Error loading employees:", error);
     showError("Failed to load employees data");
@@ -98,8 +58,8 @@ async function loadEmployees() {
 // Display employees in table
 function displayEmployees() {
   tbody.innerHTML = "";
-  
-  employeesData.forEach((emp, index) => {
+
+  employeesData.forEach((emp) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${emp.id}</td>
@@ -109,12 +69,12 @@ function displayEmployees() {
     `;
     tbody.appendChild(row);
   });
-  
+
   employeeCount.textContent = `Total Requests: ${employeesData.length}`;
   tableContainer.style.display = "block";
   simulateAccessBtn.disabled = false;
   tableVisible = true;
-  
+
   // Update button text
   loadEmployeesBtn.textContent = "Reload Employees";
 }
@@ -125,11 +85,11 @@ async function simulateAccess() {
     showError("Please load employees first");
     return;
   }
-  
+
   try {
     loadingIndicator.style.display = "block";
     simulateAccessBtn.disabled = true;
-    
+
     const response = await fetch("/api/simulate", {
       method: "POST",
       headers: {
@@ -137,14 +97,14 @@ async function simulateAccess() {
       },
       body: JSON.stringify({ employees: employeesData })
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const simulationData = await response.json();
     displayResults(simulationData);
-    
+
   } catch (error) {
     console.error("Error during simulation:", error);
     showError("Failed to run access simulation");
@@ -157,11 +117,11 @@ async function simulateAccess() {
 // Display simulation results
 function displayResults(data) {
   const { results, summary } = data;
-  
+
   // Clear previous results
   resultsTbody.innerHTML = "";
   summaryStats.innerHTML = "";
-  
+
   // Display summary statistics
   const summaryHtml = `
     <div class="summary-grid">
@@ -183,14 +143,14 @@ function displayResults(data) {
       </div>
     </div>
   `;
-  
+
   summaryStats.innerHTML = summaryHtml;
-  
+
   // Display detailed results
-  results.forEach((result, index) => {
+  results.forEach((result) => {
     const row = document.createElement("tr");
     const statusClass = getStatusClass(result.granted);
-    
+
     row.innerHTML = `
       <td>${result.employeeId}</td>
       <td class="room-${result.room.replace(/\s+/g, '-').toLowerCase()}">${result.room}</td>
@@ -204,7 +164,7 @@ function displayResults(data) {
     `;
     resultsTbody.appendChild(row);
   });
-  
+
   resultsContainer.style.display = "block";
   resultsVisible = true;
 }
@@ -213,37 +173,29 @@ function displayResults(data) {
 function clearAll() {
   // Reset state
   employeesData = [];
-  roomRulesData = {};
   tableVisible = false;
   resultsVisible = false;
-  
+
   // Hide all containers
   tableContainer.style.display = "none";
-  rulesContainer.style.display = "none";
   resultsContainer.style.display = "none";
   errorContainer.style.display = "none";
   loadingIndicator.style.display = "none";
-  
+
   // Clear content
   tbody.innerHTML = "";
   resultsTbody.innerHTML = "";
-  roomRulesDiv.innerHTML = "";
   summaryStats.innerHTML = "";
   employeeCount.textContent = "";
-  
+
   // Reset buttons
   loadEmployeesBtn.textContent = "Load Employees";
   simulateAccessBtn.disabled = true;
 }
 
 // Event listeners
-loadEmployeesBtn.addEventListener("click", async () => {
-  if (!tableVisible) {
-    await loadRoomRules(); // Load room rules first
-    await loadEmployees();
-  } else {
-    await loadEmployees(); // Reload employees
-  }
+loadEmployeesBtn.addEventListener("click", () => {
+  loadEmployees();
 });
 
 simulateAccessBtn.addEventListener("click", simulateAccess);
@@ -252,7 +204,4 @@ clearAllBtn.addEventListener("click", clearAll);
 // Initialize the application
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Employee Access Simulator initialized");
-  
-  // Load room rules on page load
-  loadRoomRules();
 });

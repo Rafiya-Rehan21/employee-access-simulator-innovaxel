@@ -1,6 +1,4 @@
 ### **.gitignore**  
-# Ignore README temporarily in dev branch
-README.md
 
 # Node modules
 node_modules/

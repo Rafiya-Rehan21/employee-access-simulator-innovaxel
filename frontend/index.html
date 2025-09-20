@@ -12,11 +12,22 @@
 
     <div id="button-container">
       <button id="loadEmployees">Load Employees</button>
-      <button id="simulateAccess">Simulate Access</button>
+      <button id="simulateAccess" disabled>Simulate Access</button>
+      <button id="clearAll">Clear All</button>
     </div>
 
+    <!-- Room Rules Section -->
+    <div id="rulesContainer" style="display: none;">
+      <h2>Room Access Rules</h2>
+      <div id="roomRules">
+        <!-- Room rules will be inserted here -->
+      </div>
+    </div>
+
+    <!-- Employee Table -->
     <div id="tableContainer" style="display: none;">
       <h2>Employee Records</h2>
+      <div id="employeeCount"></div>
       <table id="employeeTable">
         <thead>
           <tr>
@@ -32,20 +43,46 @@
       </table>
     </div>
 
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" style="display: none;">
+      <p>Running simulation...</p>
+    </div>
+
+    <!-- Simulation Results -->
     <div id="resultsContainer" style="display: none;">
       <h2>Simulation Results</h2>
-      <table id="resultsTable">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Reason</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Simulation results will go here -->
-        </tbody>
-      </table>
+      
+      <!-- Summary Statistics -->
+      <div id="summaryContainer">
+        <h3>Summary</h3>
+        <div id="summaryStats">
+          <!-- Summary will be inserted here -->
+        </div>
+      </div>
+
+      <!-- Detailed Results Table -->
+      <div id="detailedResults">
+        <h3>Detailed Results</h3>
+        <table id="resultsTable">
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Room</th>
+              <th>Request Time</th>
+              <th>Status</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Simulation results will go here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Error Display -->
+    <div id="errorContainer" style="display: none;">
+      <div id="errorMessage"></div>
     </div>
   </div>
 

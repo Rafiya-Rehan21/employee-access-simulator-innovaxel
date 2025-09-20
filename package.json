@@ -1,20 +1,44 @@
 {
   "name": "employee-access-simulator",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Employee Access Simulator - Internal tool for HR/security to simulate employee access to secure rooms",
+  "main": "backend/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/index.js",
-    "dev": "nodemon backend/index.js"
+    "dev": "nodemon backend/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:verbose": "jest --verbose"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "employee",
+    "access",
+    "simulator",
+    "security",
+    "hr-tool",
+    "access-control"
+  ],
+  "author": "Your Name",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "express": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^6.3.4"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "backend/**/*.js",
+      "!backend/node_modules/**",
+      "!backend/tests/**"
+    ],
+    "testMatch": [
+      "**/backend/tests/**/*.test.js"
+    ],
+    "verbose": true
   }
 }

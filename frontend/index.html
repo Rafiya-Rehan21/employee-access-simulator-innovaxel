@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Access Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-container">
+    <h1 id="main-heading">Employee Access Simulator</h1>
+
+    <div id="button-container">
+      <button id="loadEmployees">Load Employees</button>
+      <button id="simulateAccess">Simulate Access</button>
+    </div>
+
+    <div id="tableContainer" style="display: none;">
+      <h2>Employee Records</h2>
+      <table id="employeeTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Access Level</th>
+            <th>Request Time</th>
+            <th>Room</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be inserted dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="resultsContainer" style="display: none;">
+      <h2>Simulation Results</h2>
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Simulation results will go here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

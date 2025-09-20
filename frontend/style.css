@@ -1,0 +1,120 @@
+/* General app container */
+#app-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa; /* light gray background */
+  padding: 25px;
+  max-width: 1000px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Headings */
+#main-heading {
+  text-align: center;
+  color: #2c3e50; /* dark blue-gray */
+  margin-bottom: 25px;
+  font-weight: 600;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 15px;
+}
+
+h2 {
+  color: #34495e;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+/* Button container */
+#button-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#button-container button {
+  background-color: #3498db; /* blue */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin: 0 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#button-container button:hover {
+  background-color: #2980b9; /* darker blue on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+#button-container button:active {
+  transform: translateY(0);
+}
+
+/* Table containers */
+#tableContainer, #resultsContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  border: 1px solid #e0e0e0;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #3498db; /* blue */
+  color: white;
+  font-weight: 500;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f5f7fa; /* very light blue-gray */
+}
+
+tbody tr:hover {
+  background-color: #eaf2f8; /* light blue on hover */
+  transition: background-color 0.2s;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  #app-container {
+    padding: 15px;
+    margin: 10px;
+  }
+  
+  #button-container button {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+  }
+  
+  #tableContainer, #resultsContainer {
+    overflow-x: auto;
+  }
+  
+  table {
+    font-size: 14px;
+  }
+  
+  th, td {
+    padding: 8px;
+  }
+}

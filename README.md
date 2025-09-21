@@ -35,11 +35,11 @@ project-root/
 │ ├─ index.js               # Express server entry point
 │ ├─ allocation.js          # Access simulation logic
 │ ├─ rules.js               # Room rules definitions
-│ ├─ data/
-│ │  └─ employees.json      # Static employee data file
 │ └─ tests/                 # Contains Jest test files
 │    ├─ allocation.test.js  # Access simulation tests
 │    └─ index.test.js       # API endpoint tests
+├─ data/
+│    └─ employees.json      # Static employee data file
 │
 ├─ frontend/
 │ ├─ index.html             # Main HTML page
@@ -70,7 +70,9 @@ project-root/
    npm run dev
    ```
 4. Open the frontend:
-   Open `frontend/index.html` in a browser or use a Live Server extension.
+   The frontend is served via backend/index.js, so you don’t need to run it separately.
+   You can also open frontend/index.html directly in a browser or via a Live Server extension for testing.
+   
 5. View the data:
    Click the **Load Employees** button to display employee requests.  
    Click the **Simulate Access** button to display access results.  
